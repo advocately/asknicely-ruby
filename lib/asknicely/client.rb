@@ -19,6 +19,7 @@ module Asknicely
       headers = default_headers.dup.merge('Accept' => 'application/json')
 
       if method == :get
+        params['X-apikey'] = @api_key
         uri.query = Utils.to_query(params) unless params.empty?
         response = @http_adapter.request(method, uri, headers)
       else
@@ -57,7 +58,6 @@ module Asknicely
 
     def default_headers
       @default_headers ||= {
-        'Authorization' => "Bearer #{@api_key}",
         'User-Agent' => "Asknicely RubyGem #{Asknicely::VERSION}"
       }.freeze
     end
