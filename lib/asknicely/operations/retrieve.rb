@@ -11,14 +11,20 @@ module Asknicely
 
       module Pluralton
         module ClassMethods
-          def retrieve(id, opts = {}, client = Asknicely.shared_client)
+          def retrieve(id, opts = {}, client = Getfeedback.shared_client)
+            return unless id
             opts = Utils.serialize_values(opts)
             json = client.get_json(path(id), opts)
+            json = object_from_data(json)
             new(json)
           end
 
           def path(id = nil)
             id ? "#{@path}/#{id}" : @path
+          end
+
+          def object_from_data(json)
+            json
           end
         end
       end

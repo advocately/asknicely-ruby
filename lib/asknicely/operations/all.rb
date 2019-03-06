@@ -6,10 +6,15 @@ module Asknicely
       end
 
       module ClassMethods
-        def all(params = {}, client = Asknicely.shared_client)
-          params = Utils.serialize_values(params)
-          json = client.get_json(path, params)
-          EnumerableResourceCollection.new(json.map { |attributes| new(attributes) })
+        def all(opts = {}, client = Getfeedback.shared_client)
+          opts = Utils.serialize_values(opts)
+          json = client.get_json(path, opts)
+          @meta = json
+          EnumerableResourceCollection.new(array_from_data(json).map { |attributes| new(attributes) }, json)
+        end
+
+        def array_from_data(json)
+          json.delete(:data)
         end
       end
     end

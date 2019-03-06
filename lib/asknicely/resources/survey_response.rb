@@ -9,7 +9,12 @@ module Asknicely
       params = Utils.serialize_values(params)
       path = build_path_from(params)
       json = client.get_json(path, params)
-      EnumerableResourceCollection.new(json.map { |attributes| new(attributes) })
+      @meta = json
+      EnumerableResourceCollection.new(array_from_data(json).map { |attributes| new(attributes) }, json)
+    end
+
+    def self.array_from_data(json)
+      json.delete(:data)
     end
 
   private
