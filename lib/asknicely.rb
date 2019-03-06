@@ -14,7 +14,6 @@ require 'asknicely/resource'
 require 'asknicely/operations/all'
 require 'asknicely/operations/retrieve'
 require 'asknicely/resources/survey_response'
-require 'asknicely/resources/contact'
 
 require 'asknicely/errors'
 require 'asknicely/http_response'
